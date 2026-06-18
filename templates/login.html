@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PurpleRain — Вход</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="auth-page">
+
+    <div class="brand-block">
+        <div class="brand-logo">✦ Messenger</div>
+        <div class="brand-title">PurpleRain</div>
+        <div class="brand-subtitle">Ваш личный мессенджер, в котором всё есть</div>
+    </div>
+
+    <div class="auth-container">
+        <h2 class="auth-title">Войти в аккаунт</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('auth.login') }}" method="POST">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" name="username" class="form-control"
+                       placeholder="Введите никнейм" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" name="password" class="form-control"
+                       placeholder="Введите пароль" required>
+            </div>
+            <button type="submit" class="btn-block">Войти</button>
+        </form>
+
+        <div class="auth-footer">
+            Ещё нет аккаунта? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
